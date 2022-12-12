@@ -78,3 +78,49 @@ document.querySelector('.btn--close-cookie').addEventListener('click', function(
   message.parentElement.removeChild(message); // this is the old way deleting the element. 
 })
 ////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// // styles 
+
+// message.style.backgroundColor = '#076785';
+// message.style.width = '120%';
+// console.log(message.style.width); // 120%
+// console.log(getComputedStyle(message).color); // rgb(187, 187, 187)
+// console.log(getComputedStyle(message)); // we'll get CSSStyleDeclaration(a very big list)
+// console.log(getComputedStyle(message).height); // 47.6667px
+// message.style.height = Number.parseFloat( getComputedStyle(message).height) + 50 + 'px'; // 
+// console.log(getComputedStyle(message).height); // 97.6667px - it is like a variable 
+// console.log(message.style.height); // 97.6667px
+
+// //
+
+// document.documentElement.style.setProperty('--color-first', 'green'); // in this way we can change root in css 
+
+// // Atributes
+
+// const logo = document.querySelector('.nav__logo');
+// console.log(logo.alt); // Лого Просто Банк. if we havn't this attribute in our CSS, we'll see the empty string in console 
+// console.log(logo.src); // http://127.0.0.1:5500/img/logo.png - it is the absalute URL
+// console.log(logo.getAttribute('src')); // img/logo.png = relative path
+// console.log(logo.className); // nav__logo
+
+// logo.alt = 'Logo Just Bank'; // new value of attribute alt
+
+// logo.setAttribute('copyright', 'Masters Of code'); // added new attribute copyright with a value Masters Of code
+
+// const link = document.querySelector('.nav__link--btn');
+// console.log(link.href); // http://127.0.0.1:5500/index.html# - absalute URL
+// console.log(link.getAttribute('href')); // # - relative URL
+
+// // Data attributes
+// console.log(logo.dataset.versionNumber); // 2.0
+
+
+// // Classes
+
+// logo.classList.add('a', 'b'); // we add the class (-es)
+// logo.classList.remove('a', 'b'); // we delete the class (-es)
+// logo.classList.toggle('a'); // if the HTML element contains this class - toggle method delete the class. If not - added
+// logo.classList.contains('c'); // return true if element contains class and false if not
+
+
+
