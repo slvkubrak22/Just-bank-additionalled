@@ -1,15 +1,17 @@
 'use strict';
 
 ///////////////////////////////////////
-// Modal window
+
+const btnScrolling = document.querySelector('.btn--scroll-to');
+const section1 = document.querySelector('#section--1');
 
 const modalWindow = document.querySelector('.modal-window');
 const overlay = document.querySelector('.overlay');
 const btnCloseModalWindow = document.querySelector('.btn--close-modal-window');
-const btnsOpenModalWindow = document.querySelectorAll(
-  '.btn--show-modal-window'
-);
+const btnsOpenModalWindow = document.querySelectorAll('.btn--show-modal-window');
 
+
+// Modal window
 const openModalWindow = function (e) {
   e.preventDefault(); 
   modalWindow.classList.remove('hidden');
@@ -36,6 +38,71 @@ document.addEventListener('keydown', function (e) {
     closeModalWindow();
   }
 });
+
+// smooth scrolling
+
+btnScrolling.addEventListener('click', function(e) {
+  const section1Coords = section1.getBoundingClientRect();
+  console.log(section1Coords); // DOMRect
+  console.log(e.target.getBoundingClientRect());
+  console.log('Current scrolling: x, y', window.pageXOffset, window.pageYOffset);
+  console.log('Viewport width: and height:', document.documentElement.clientWidth, document.documentElement.clientHeight);
+
+  window.scrollTo(section1Coords.left + window.pageXOffset, section1Coords.top + window.pageYOffset);
+  window.scrollTo({
+    left: section1Coords.left + window.pageXOffset, 
+    top: section1Coords.top + window.pageYOffset,
+    behavior: 'smooth',
+  });
+   
+  // section1.scrollIntoView({
+  //   behavior: "smooth", // only for modern browsers
+  // });
+
+});
+
+////////////////////////////////////////////////////////////////////////////////////////////////
+// Smoth page navigation 
+
+
+// // code below good if have not a lot of links.
+
+// document.querySelectorAll('.nav__link').forEach(function(htmlElement) {
+//   htmlElement.addEventListener('click', function(e) {
+//     e.preventDefault();
+//     const href = this.getAttribute('href');
+//     document.querySelector(href).scrollIntoView({
+//       behavior: 'smooth',
+//     });
+//     console.log(href);
+//   });
+// });
+
+// // code below more comfortable, here we'll use Event Delegation
+// // 1. add eventListener to a COMMON parent of our links. In this case it is element <ul class="nav__links">
+document.querySelector('.nav__links').addEventListener('click', function(e) {
+  e.preventDefault();
+  // // 2. determine target element
+  console.log(e.target);// <a class="nav__link" href="#section--1">Услуги</a> <a class="nav__link" href="#section--2">Операции</a> <a class="nav__link" href="#section--3">Отзывы</a>
+  if(e.target.classList.contains('nav__link')) {
+    const href = e.target.getAttribute('href');
+    document.querySelector(href).scrollIntoView({
+      behavior: 'smooth',
+    });
+  }
+})
+
+
+
+
+
+
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
+
 
 // ////////////////////////////////////////////////////////////////////////////////////////////////////
 // console.log(document.documentElement); // our HTML code
@@ -123,32 +190,9 @@ document.addEventListener('keydown', function (e) {
 // logo.classList.contains('c'); // return true if element contains class and false if not
 
 
-
-// smooth scrolling
-
-const btnScrolling = document.querySelector('.btn--scroll-to');
-const section1 = document.querySelector('#section--1');
-
-btnScrolling.addEventListener('click', function(e) {
-  const section1Coords = section1.getBoundingClientRect();
-  console.log(section1Coords); // DOMRect
-  console.log(e.target.getBoundingClientRect());
-  console.log('Current scrolling: x, y', window.pageXOffset, window.pageYOffset);
-  console.log('Viewport width: and height:', document.documentElement.clientWidth, document.documentElement.clientHeight);
-
-  window.scrollTo(section1Coords.left + window.pageXOffset, section1Coords.top + window.pageYOffset);
-  window.scrollTo({
-    left: section1Coords.left + window.pageXOffset, 
-    top: section1Coords.top + window.pageYOffset,
-    behavior: 'smooth',
-  });
-   
-  // section1.scrollIntoView({
-  //   behavior: "smooth", // only for modern browsers
-  // });
-
-});
-
+////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
 // Types of events and eventlisteners 
 
 // const h1 = document.querySelector('h1');
@@ -219,6 +263,6 @@ btnScrolling.addEventListener('click', function(e) {
 
 
 
-// Event Delegation
+
 
 
