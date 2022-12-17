@@ -136,15 +136,89 @@ btnScrolling.addEventListener('click', function(e) {
   console.log('Current scrolling: x, y', window.pageXOffset, window.pageYOffset);
   console.log('Viewport width: and height:', document.documentElement.clientWidth, document.documentElement.clientHeight);
 
-  // window.scrollTo(section1Coords.left + window.pageXOffset, section1Coords.top + window.pageYOffset);
-  // window.scrollTo({
-  //   left: section1Coords.left + window.pageXOffset, 
-  //   top: section1Coords.top + window.pageYOffset,
-  //   behavior: 'smooth',
-  // });
-   
-  section1.scrollIntoView({
-    behavior: "smooth", // only for modern browsers
+  window.scrollTo(section1Coords.left + window.pageXOffset, section1Coords.top + window.pageYOffset);
+  window.scrollTo({
+    left: section1Coords.left + window.pageXOffset, 
+    top: section1Coords.top + window.pageYOffset,
+    behavior: 'smooth',
   });
+   
+  // section1.scrollIntoView({
+  //   behavior: "smooth", // only for modern browsers
+  // });
 
 });
+
+// Types of events and eventlisteners 
+
+// const h1 = document.querySelector('h1');
+// h1.addEventListener('mouseenter', function(e) { // like hover in CSS 
+//   alert('addEvenListener: You are now at h1 element'); // modern
+// });
+
+// h1.onclick = function(e) {  
+//   alert('onclick: You are now click at h1 element');  // oldschool
+// };
+
+// const alertMouseEnterH1 = function(e) { 
+//   alert('addEvenListener: You are now at h1 element'); 
+//   h1.removeEventListener('mouseenter', alertMouseEnterH1); // after calling alert, we delete the alertMouseEnterH1 function
+// };
+// h1.addEventListener('mouseenter', alertMouseEnterH1);
+
+// const alertMouseEnterH1 = function(e) { 
+//   alert('addEvenListener: You are now at h1 element');  
+// };
+// h1.addEventListener('mouseenter', alertMouseEnterH1);
+
+// setTimeout(() => h1.removeEventListener('mouseenter', alertMouseEnterH1), 3000); // in this way, we delete our function after 3 seconds
+
+////////////////////////////////////////////////////////////
+// Event Propagation
+
+// rgb(123, 56, 78)
+
+// function getRandomInt(min, max) {
+//   min = Math.ceil(min);
+//   max = Math.floor(max);
+//   return Math.floor(Math.random() * (max - min) + min); 
+// }
+
+// function getRandomIntInclusive(min, max) {
+//   min = Math.ceil(min);
+//   max = Math.floor(max);
+//   return Math.floor(Math.random() * (max - min + 1) + min); 
+// }
+
+// const getRandomColor = () => `rgb(
+//   ${getRandomIntInclusive(0, 225)},
+//   ${getRandomIntInclusive(0, 225)},
+//   ${getRandomIntInclusive(0, 225)}
+// )`;
+
+// document.querySelector('.nav__link').addEventListener('click', function(e) {
+//   this.style.backgroundColor = getRandomColor();
+//   console.log('Link', e.target, e.currentTarget); // target то на чем был физический клик Услуги
+//   // currentTarget - покажет тот эелемент разметки, куда клацнем
+//   console.log(this === e.currentTarget);
+//   // // stop propagation
+//   // e.stopPropagation(); // we stop our propagation on this element
+// });
+// document.querySelector('.nav__links').addEventListener('click', function(e) {
+//   this.style.backgroundColor = getRandomColor();
+//   console.log('Links', e.target, e.currentTarget);
+// });
+// document.querySelector('.nav').addEventListener('click', function(e) {
+//   this.style.backgroundColor = getRandomColor();
+//   console.log('Nav', e.target, e.currentTarget);
+// }, true); // последним параметр true у нас указывает на то, что мы перехватываем наш эелемент и его событие на фазу перехвата. Зачем это надо - ХЗ. Но это уже устаревшая фича, так шо не обращаем внимание на это 
+// document.querySelector('body').addEventListener('click', function(e) {
+//   this.style.backgroundColor = getRandomColor();
+//   console.log('Body', e.target, e.currentTarget);
+// });
+
+
+
+// Event Delegation
+
+
