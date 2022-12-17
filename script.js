@@ -87,14 +87,10 @@ document.querySelector('.nav__links').addEventListener('click', function(e) {
   if(e.target.classList.contains('nav__link')) {
     const href = e.target.getAttribute('href');
     document.querySelector(href).scrollIntoView({
-      behavior: 'smooth',
+      behavior: 'smooth'
     });
   }
-})
-
-
-
-
+});
 
 
 
@@ -261,8 +257,33 @@ document.querySelector('.nav__links').addEventListener('click', function(e) {
 //   console.log('Body', e.target, e.currentTarget);
 // });
 
+////////////////////////////////////////////////////////////
+// Dom traversing (Перемещение по DOM)
 
+const h1 = document.querySelector('h1');
 
+//moving down (to child)
+console.log(h1.querySelectorAll('.highlight')); // nodelist with 2 elements class="highlight"
+console.log(h1.childNodes); // nodelist of all elements which are contained in class="highlight": text, comment, text, span, text, br, text, span, text
+console.log(h1.children); // in this case get HTMLCollection [span.highlight, br, span.highlight]. It works only for direct descendants. Nested children are not specified
+console.log(h1.firstElementChild); // get the first child of parent element // span.highlight
+h1.firstElementChild.style.color = 'yellow'; // change color text of the first element of parent element
+console.log(h1.lastElementChild); // get the last child of parent element // span.highlight(in this case first and last elements of h1 have the same tag and class name)
+h1.lastElementChild.style.color = 'pink'; // change color text of the last element of parent element
 
+// moving up (to parent)
+console.log(h1.parentNode); // get parent element of h1
+console.log(h1.parentElement); // the same (get parent element of h1)
 
+const h2 = document.querySelector('h2');
+console.log(h2);
+console.log(h2.closest('.section')); // get the closest(nearest) parent element
+h2.closest('.section').style.backgroundColor = 'blue';
+h2.closest('h2').style.backgroundColor = 'green';
+
+// moving on the same level (neighbors (previous or next one) brothers)
+console.log(h2.previousElementSibling); // in this case get null (because h2 doesn't have a previous element)
+console.log(h2.nextElementSibling); // get h3 class="section__header" as next neighbor
+
+console.log(h1.parentElement.children); // in this way we can get all neighbors of element h1 (we go to a parent of h1 and then get HTMLCollection of all direct children, neighbors of our element h1)
 
