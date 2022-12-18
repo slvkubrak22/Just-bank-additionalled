@@ -97,9 +97,8 @@ document.querySelector('.nav__links').addEventListener('click', function(e) {
 // Анимация потускнения нав панели навигации
 const nav = document.querySelector('.nav');
 
-
 const navLinksHoverOpacity = function(e) {
-  console.log(this, e.currentTarget);
+  // console.log(this, e.currentTarget);
   if(e.target.classList.contains('nav__link')) {
     const linkOver = e.target; 
     const siblingLinks = linkOver.closest('.nav__links').querySelectorAll('.nav__link');
@@ -117,7 +116,6 @@ const navLinksHoverOpacity = function(e) {
 };
 
 nav.addEventListener('mouseover', navLinksHoverOpacity.bind(0.4));
-
 nav.addEventListener('mouseout', navLinksHoverOpacity.bind(1));
 
 
@@ -141,6 +139,21 @@ tabContainer.addEventListener('click', function(e) {
   document.querySelector(`.operations__content--${clickedButton.dataset.tab}`).classList.add('operations__content--active');
 });
 
+
+// sticky navigation
+
+const section1Coords = section1.getBoundingClientRect();
+console.log(section1Coords);
+
+window.addEventListener('scroll', function(e) {
+  console.log(window.scrollY);
+
+  if(this.window.scrollY > section1Coords.top) {
+    nav.classList.add('sticky');
+  } else {
+    nav.classList.remove('sticky');
+  }
+});
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
