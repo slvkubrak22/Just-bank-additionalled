@@ -161,22 +161,47 @@ tabContainer.addEventListener('click', function(e) {
 
 const header = document.querySelector('.header');
 const navHeight = nav.getBoundingClientRect().height;
-console.log(navHeight)
+// console.log(navHeight)
 const getStickyNav = function (entries) {
   const entry = entries[0];
-  console.log(entry);
+  // console.log(entry);
   if(!entry.isIntersecting) {
     nav.classList.add('sticky');
   } else {
     nav.classList.remove('sticky');
   }
 };
-const observer = new IntersectionObserver(getStickyNav, {
+const headerObserver = new IntersectionObserver(getStickyNav, {
   root: null,
   treshold: 0,
   rootMargin: `-${navHeight}px`,
 });
-observer.observe(header);
+headerObserver.observe(header);
+
+// Section appear // еще одна неведомая дичь!!! Вот серьезно, зачем самому себе усложнять жизнь???
+
+const allSections = document.querySelectorAll('.section');
+
+const appearSection = function(entries, observer) {
+  const entry = entries[0];
+  console.log(entry);
+  if(entry.isIntersecting === true) {
+    entry.target.classList.remove('section--hidden');
+    observer.unobserve(entry.target); 
+  }
+  
+};
+
+const sectionObserver = new IntersectionObserver(appearSection, {
+  root: null,
+  threshold: 0.25,
+});
+
+allSections.forEach((section) => {
+  sectionObserver.observe(section);
+  section.classList.add('section--hidden');
+});
+
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
