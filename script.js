@@ -92,7 +92,54 @@ document.querySelector('.nav__links').addEventListener('click', function(e) {
   }
 });
 
+////////////////////////////////////////////////////////////////////////////////////////////////
 
+// Анимация потускнения нав панели навигации
+const nav = document.querySelector('.nav');
+
+
+const navLinksHoverOpacity = function(e) {
+  console.log(this, e.currentTarget);
+  if(e.target.classList.contains('nav__link')) {
+    const linkOver = e.target; 
+    const siblingLinks = linkOver.closest('.nav__links').querySelectorAll('.nav__link');
+    const logo = linkOver.closest('.nav').querySelector('img');
+    const logoText =  linkOver.closest('.nav').querySelector('.nav__text');
+
+    siblingLinks.forEach(element => {
+      if(element !== linkOver) {
+        element.style.opacity = this;
+      }
+      logo.style.opacity = this;
+      logoText.style.opacity = this;
+    });
+  }
+};
+
+nav.addEventListener('mouseover', navLinksHoverOpacity.bind(0.4));
+
+nav.addEventListener('mouseout', navLinksHoverOpacity.bind(1));
+
+
+// Вкладка (inlay or tab or chart)
+const tabContainer = document.querySelector('.operations__tab-container');
+const tabs = document.querySelectorAll('.operations__tab');
+const tabContents = document.querySelectorAll('.operations__content');
+
+tabContainer.addEventListener('click', function(e) {
+  e.preventDefault();
+  const clickedButton = e.target.closest('.operations__tab');
+  console.log(clickedButton);
+  if(!clickedButton) {
+    return; // guard clause - пункт охраны
+  }
+  // Active tab
+  tabs.forEach(tab => tab.classList.remove('operations__tab--active'));
+  clickedButton.classList.add('operations__tab--active');
+  // Active content
+  tabContents.forEach(content => content.classList.remove('operations__content--active'))
+  document.querySelector(`.operations__content--${clickedButton.dataset.tab}`).classList.add('operations__content--active');
+});
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -258,32 +305,32 @@ document.querySelector('.nav__links').addEventListener('click', function(e) {
 // });
 
 ////////////////////////////////////////////////////////////
-// Dom traversing (Перемещение по DOM)
+// // Dom traversing (Перемещение по DOM)
 
-const h1 = document.querySelector('h1');
+// const h1 = document.querySelector('h1');
 
-//moving down (to child)
-console.log(h1.querySelectorAll('.highlight')); // nodelist with 2 elements class="highlight"
-console.log(h1.childNodes); // nodelist of all elements which are contained in class="highlight": text, comment, text, span, text, br, text, span, text
-console.log(h1.children); // in this case get HTMLCollection [span.highlight, br, span.highlight]. It works only for direct descendants. Nested children are not specified
-console.log(h1.firstElementChild); // get the first child of parent element // span.highlight
-h1.firstElementChild.style.color = 'yellow'; // change color text of the first element of parent element
-console.log(h1.lastElementChild); // get the last child of parent element // span.highlight(in this case first and last elements of h1 have the same tag and class name)
-h1.lastElementChild.style.color = 'pink'; // change color text of the last element of parent element
+// //moving down (to child)
+// console.log(h1.querySelectorAll('.highlight')); // nodelist with 2 elements class="highlight"
+// console.log(h1.childNodes); // nodelist of all elements which are contained in class="highlight": text, comment, text, span, text, br, text, span, text
+// console.log(h1.children); // in this case get HTMLCollection [span.highlight, br, span.highlight]. It works only for direct descendants. Nested children are not specified
+// console.log(h1.firstElementChild); // get the first child of parent element // span.highlight
+// h1.firstElementChild.style.color = 'yellow'; // change color text of the first element of parent element
+// console.log(h1.lastElementChild); // get the last child of parent element // span.highlight(in this case first and last elements of h1 have the same tag and class name)
+// h1.lastElementChild.style.color = 'pink'; // change color text of the last element of parent element
 
-// moving up (to parent)
-console.log(h1.parentNode); // get parent element of h1
-console.log(h1.parentElement); // the same (get parent element of h1)
+// // moving up (to parent)
+// console.log(h1.parentNode); // get parent element of h1
+// console.log(h1.parentElement); // the same (get parent element of h1)
 
-const h2 = document.querySelector('h2');
-console.log(h2);
-console.log(h2.closest('.section')); // get the closest(nearest) parent element
-h2.closest('.section').style.backgroundColor = 'blue';
-h2.closest('h2').style.backgroundColor = 'green';
+// const h2 = document.querySelector('h2');
+// console.log(h2);
+// console.log(h2.closest('.section')); // get the closest(nearest) parent element
+// h2.closest('.section').style.backgroundColor = 'blue';
+// h2.closest('h2').style.backgroundColor = 'green';
 
-// moving on the same level (neighbors (previous or next one) brothers)
-console.log(h2.previousElementSibling); // in this case get null (because h2 doesn't have a previous element)
-console.log(h2.nextElementSibling); // get h3 class="section__header" as next neighbor
+// // moving on the same level (neighbors (previous or next one) brothers)
+// console.log(h2.previousElementSibling); // in this case get null (because h2 doesn't have a previous element)
+// console.log(h2.nextElementSibling); // get h3 class="section__header" as next neighbor
 
-console.log(h1.parentElement.children); // in this way we can get all neighbors of element h1 (we go to a parent of h1 and then get HTMLCollection of all direct children, neighbors of our element h1)
+// console.log(h1.parentElement.children); // in this way we can get all neighbors of element h1 (we go to a parent of h1 and then get HTMLCollection of all direct children, neighbors of our element h1)
 
