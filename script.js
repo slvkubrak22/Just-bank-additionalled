@@ -140,20 +140,43 @@ tabContainer.addEventListener('click', function(e) {
 });
 
 
-// sticky navigation
 
-const section1Coords = section1.getBoundingClientRect();
-console.log(section1Coords);
+// // sticky navigation
 
-window.addEventListener('scroll', function(e) {
-  console.log(window.scrollY);
+// const section1Coords = section1.getBoundingClientRect();
+// // console.log(section1Coords);
 
-  if(this.window.scrollY > section1Coords.top) {
+// window.addEventListener('scroll', function(e) {
+//   // console.log(window.scrollY);
+
+//   if(this.window.scrollY > section1Coords.top) {
+//     nav.classList.add('sticky');
+//   } else {
+//     nav.classList.remove('sticky');
+//   }
+// });
+ 
+
+// sticky navigation - Intersection Observer API (наблюдатель пересечения) (Какая-то лютая ДИЧЬ!!!)
+
+const header = document.querySelector('.header');
+const navHeight = nav.getBoundingClientRect().height;
+console.log(navHeight)
+const getStickyNav = function (entries) {
+  const entry = entries[0];
+  console.log(entry);
+  if(!entry.isIntersecting) {
     nav.classList.add('sticky');
   } else {
     nav.classList.remove('sticky');
   }
+};
+const observer = new IntersectionObserver(getStickyNav, {
+  root: null,
+  treshold: 0,
+  rootMargin: `-${navHeight}px`,
 });
+observer.observe(header);
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -346,4 +369,22 @@ window.addEventListener('scroll', function(e) {
 // console.log(h2.nextElementSibling); // get h3 class="section__header" as next neighbor
 
 // console.log(h1.parentElement.children); // in this way we can get all neighbors of element h1 (we go to a parent of h1 and then get HTMLCollection of all direct children, neighbors of our element h1)
+
+
+////////////////////////////////////////////////////////////
+// // Intersection Observer API (наблюдатель пересечения)
+
+// const observerCallback = function(entries, observer) {
+//   entries.forEach(entry => {
+//     console.log(entry);
+//   })
+// };
+
+// const observerOption = {
+//   root: null, // root пересекается с таргет элементом 
+//   threshold: [0, 0.2],
+// };
+
+// const observer = new IntersectionObserver(observerCallback, observerOption);
+// observer.observe(section1);
 
